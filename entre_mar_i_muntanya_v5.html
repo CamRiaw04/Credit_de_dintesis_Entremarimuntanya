@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entre Mar i Muntanya — Crèdit de Síntesi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --terra: #2c1f0e;
+  --suro: #5c3d1e;
+  --arena: #c8a97a;
+  --sorra: #e8d9bf;
+  --crema: #f5ede0;
+  --blanc: #faf7f2;
+  --mar-fosc: #0d2b3e;
+  --mar: #1a4a5e;
+  --mar-mig: #2a6b7c;
+  --mar-clar: #4a9aaa;
+  --verd-fosc: #1a2e1a;
+  --verd: #2d4a2d;
+  --verd-mig: #4a6741;
+  --verd-clar: #7a9e6a;
+  --roig: #8b3a1a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--blanc);
+  color: var(--terra);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════
+   TEXTURA DE FONS GLOBAL
+══════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════
+   LOGIN
+══════════════════════════════════════ */
+#login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+.login-left {
+  flex: 1.2;
+  background: var(--verd-fosc);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 4rem;
+  overflow: hidden;
+}
+
+/* Cercles decoratius natura */
+.login-left::before {
+  content: '';
+  position: absolute;
+  top: -120px; left: -120px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,103,65,0.4) 0%, transparent 70%);
+}
+.login-left::after {
+  content: '';
+  position: absolute;
+  bottom: 80px; right: -80px;
+  width: 350px; height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,74,94,0.35) 0%, transparent 70%);
+}
+
+/* Línies horitzontals decoratives */
+.login-lines {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 39px,
+    rgba(255,255,255,0.03) 39px,
+    rgba(255,255,255,0.03) 40px
+  );
+}
+
+.login-left-content { position: relative; z-index: 2; }
+
+.login-tag {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--verd-clar);
+  font-weight: 500;
+  margin-bottom: 1.8rem;
+}
+
+.login-left h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--crema);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.login-left h1 em {
+  font-style: italic;
+  color: var(--mar-clar);
+  display: block;
+}
+.login-left h1 strong {
+  color: var(--verd-clar);
+  font-weight: 400;
+}
+
+.login-desc {
+  font-size: 13px;
+  color: rgba(245,237,224,0.45);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 320px;
+  margin-bottom: 2.5rem;
+}
+
+.login-loc {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: rgba(245,237,224,0.3);
+  letter-spacing: .08em;
+}
+.login-loc::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: rgba(245,237,224,0.2);
+}
+
+.login-right {
+  flex: 0.8;
+  background: var(--crema);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 3rem;
+  position: relative;
+}
+
+/* Textura paper */
+.login-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.login-form { width: 100%; max-width: 300px; position: relative; }
+
+.lf-eyebrow {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--arena);
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.lf-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  color: var(--terra);
+  font-weight: 600;
+  margin-bottom: .3rem;
+  line-height: 1.15;
+}
+.lf-sub {
+  font-size: 12px;
+  color: var(--arena);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.lf-field { margin-bottom: 1.8rem; }
+.lf-field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--suro);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.lf-field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--arena);
+  padding: 8px 0;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--terra);
+  outline: none;
+  transition: border-color .2s;
+  letter-spacing: .05em;
+}
+.lf-field input:focus { border-bottom-color: var(--mar); }
+
+.lf-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--verd-fosc);
+  color: var(--crema);
+  border: none;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
+  margin-top: .5rem;
+}
+.lf-btn:hover { background: var(--mar-fosc); }
+
+.lf-error {
+  margin-top: .8rem;
+  font-size: 12px;
+  color: var(--roig);
+  display: none;
+  font-weight: 400;
+}
+
+/* ══════════════════════════════════════
+   PORTAL
+══════════════════════════════════════ */
+#portal { display: none; position: relative; z-index: 1; }
+
+/* Barra institucional */
+.top-bar {
+  background: var(--verd-fosc);
+  padding: .6rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-bar-left {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(245,237,224,0.4);
+  font-weight: 500;
+}
+.top-bar-right { display: flex; align-items: center; gap: 1.5rem; }
+.top-bar-right span {
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: rgba(245,237,224,0.3);
+  text-transform: uppercase;
+}
+.btn-sortir {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--verd-clar);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 0;
+  transition: color .15s;
+}
+.btn-sortir:hover { color: var(--crema); }
+
+/* HERO */
+.hero {
+  background: var(--verd-fosc);
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 2.5rem 7rem;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -150px; right: -100px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,74,94,0.5) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: 30%;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,103,65,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 59px,
+    rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px
+  );
+}
+
+.hero-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 3rem;
+}
+.hero-tag {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--verd-clar);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 5rem;
+  line-height: .95;
+  color: var(--crema);
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+}
+.hero h1 em { font-style: italic; color: var(--mar-clar); }
+.hero h1 strong { color: var(--verd-clar); font-weight: 400; }
+.hero-desc {
+  font-size: 13px;
+  color: rgba(245,237,224,0.45);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 460px;
+}
+.hero-dates {
+  text-align: right;
+  flex-shrink: 0;
+}
+.hero-date-item {
+  font-size: 11px;
+  color: rgba(245,237,224,0.3);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: .4rem;
+}
+
+/* Ona de transició hero → contingut */
+.hero-wave {
+  height: 80px;
+  background: var(--verd-fosc);
+  position: relative;
+  margin-top: -1px;
+}
+.hero-wave::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: var(--blanc);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+/* CONTINGUT */
+.main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 5rem;
+}
+
+/* Títols de secció */
+.s-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+.s-label-text {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--arena);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.s-label-line {
+  flex: 1;
+  height: 1px;
+  background: var(--sorra);
+}
+
+/* ══════════════════════════════════════
+   CALENDARI
+══════════════════════════════════════ */
+.calendari { margin-bottom: 4rem; }
+
+/* Fases principals */
+.fase-block {
+  margin-bottom: 2rem;
+  border-left: 2px solid var(--sorra);
+  padding-left: 1.5rem;
+  position: relative;
+}
+.fase-block::before {
+  content: '';
+  position: absolute;
+  left: -5px; top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--arena);
+}
+.fase-block.camp { border-left-color: var(--verd-mig); }
+.fase-block.camp::before { background: var(--verd-mig); }
+.fase-block.final { border-left-color: var(--mar-mig); }
+.fase-block.final::before { background: var(--mar-mig); }
+
+.fase-dates {
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--arena);
+  margin-bottom: .3rem;
+}
+.fase-block.camp .fase-dates { color: var(--verd-mig); }
+.fase-block.final .fase-dates { color: var(--mar-mig); }
+
+.fase-titol {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--terra);
+  margin-bottom: .8rem;
+}
+
+/* Activitats de la fase prèvia */
+.act-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.act-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--suro);
+  font-weight: 300;
+  line-height: 1.5;
+}
+.act-item::before {
+  content: '—';
+  color: var(--sorra);
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+/* Taula de les colònies */
+.colonies-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(3, 1fr);
+  border: 1px solid var(--sorra);
+  overflow: hidden;
+  margin-top: .8rem;
+  font-size: 12px;
+}
+.cg-head {
+  background: var(--verd-fosc);
+  color: var(--crema);
+  padding: .7rem 1rem;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+}
+.cg-head.lateral { background: var(--terra); font-size: 9px; }
+.cg-head:first-child { background: transparent; }
+
+.cg-row-label {
+  background: var(--terra);
+  color: var(--crema);
+  padding: .8rem .6rem;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.cg-row-label.sopar { background: var(--suro); font-size: 9px; writing-mode: horizontal-tb; padding: .5rem; }
+
+.cg-cell {
+  padding: .9rem 1rem;
+  border-left: 1px solid var(--sorra);
+  border-top: 1px solid var(--sorra);
+  color: var(--suro);
+  font-weight: 300;
+  line-height: 1.55;
+  vertical-align: top;
+  background: var(--blanc);
+}
+.cg-cell strong {
+  display: block;
+  font-weight: 600;
+  color: var(--terra);
+  margin-bottom: .2rem;
+  font-size: 11px;
+}
+.cg-cell em {
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--verd-mig);
+  font-weight: 600;
+  display: block;
+  margin-top: .4rem;
+}
+.cg-cell.sopar-cell {
+  text-align: center;
+  font-size: 11px;
+  color: var(--arena);
+  font-weight: 400;
+  letter-spacing: .05em;
+  background: var(--crema);
+}
+.cg-cell.sopar-row {
+  grid-column: span 1;
+  background: var(--crema);
+  text-align: center;
+  font-size: 11px;
+  color: var(--arena);
+}
+
+/* ══════════════════════════════════════
+   MATERIALS
+══════════════════════════════════════ */
+.materials { margin-bottom: 4rem; }
+.mat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5px;
+  background: var(--sorra);
+  border: 1px solid var(--sorra);
+}
+.mat-bloc {
+  background: var(--blanc);
+  padding: 2.2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.mat-bloc::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 80px; height: 80px;
+  border-radius: 50% 0 0 0;
+  background: var(--crema);
+  opacity: .5;
+}
+.mat-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 4rem;
+  color: var(--sorra);
+  line-height: 1;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+.mat-titol {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--terra);
+  margin-bottom: .3rem;
+}
+.mat-sub {
+  font-size: 12px;
+  color: var(--arena);
+  font-weight: 300;
+  line-height: 1.65;
+  margin-bottom: 1.8rem;
+}
+
+/* Botó */
+.btn {
+  display: inline-block;
+  padding: 11px 18px;
+  font-size: 10px;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .18s;
+  border: none;
+  text-align: center;
+  width: 100%;
+}
+.btn-fosc {
+  background: var(--terra);
+  color: var(--crema);
+}
+.btn-fosc:hover { background: var(--mar-fosc); }
+.btn-mar {
+  background: var(--mar);
+  color: var(--crema);
+}
+.btn-mar:hover { background: var(--mar-fosc); }
+.btn-verd {
+  background: var(--verd);
+  color: var(--crema);
+}
+.btn-verd:hover { background: var(--verd-fosc); }
+.btn-outline {
+  background: transparent;
+  color: var(--terra);
+  border: 1.5px solid var(--sorra);
+}
+.btn-outline:hover { background: var(--terra); color: var(--crema); border-color: var(--terra); }
+
+/* Llista eines */
+.eines-llista { display: flex; flex-direction: column; gap: 3px; margin-bottom: 1.2rem; }
+.eina-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--crema);
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--terra);
+  text-align: left;
+  transition: background .12s, padding-left .14s;
+  gap: 10px;
+  width: 100%;
+}
+.eina-fila:hover { background: var(--verd-fosc); color: var(--crema); padding-left: 18px; }
+.eina-fila span { flex: 1; }
+.eina-fila small {
+  font-size: 11px;
+  opacity: .4;
+  transition: opacity .12s;
+}
+.eina-fila:hover small { opacity: .8; }
+
+/* Bloc dossier */
+.dossier-nota {
+  background: var(--crema);
+  padding: .9rem 1.1rem;
+  font-size: 12px;
+  color: var(--suro);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+  border-left: 2px solid var(--arena);
+}
+
+/* ══════════════════════════════════════
+   VÍDEO FINAL
+══════════════════════════════════════ */
+.video-section { margin-bottom: 4rem; }
+.video-bloc {
+  background: var(--mar-fosc);
+  padding: 2.8rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.video-bloc::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(42,107,124,0.4) 0%, transparent 70%);
+}
+.video-bloc::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: 40%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,74,94,0.5) 0%, transparent 70%);
+}
+.video-inner { position: relative; z-index: 2; }
+
+.video-tag {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--mar-clar);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.video-titol {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.2rem;
+  color: var(--crema);
+  font-weight: 400;
+  margin-bottom: .5rem;
+  line-height: 1.1;
+}
+.video-titol em { font-style: italic; color: var(--mar-clar); }
+.video-desc {
+  font-size: 13px;
+  color: rgba(245,237,224,0.55);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 580px;
+  margin-bottom: 2.5rem;
+}
+
+.video-passos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 2rem;
+}
+.video-pas {
+  background: rgba(13,43,62,0.8);
+  padding: 1.4rem 1.2rem;
+}
+.vp-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.5rem;
+  color: rgba(245,237,224,0.12);
+  line-height: 1;
+  margin-bottom: .6rem;
+}
+.vp-text {
+  font-size: 12px;
+  color: rgba(245,237,224,0.6);
+  line-height: 1.65;
+  font-weight: 300;
+}
+.vp-text strong { color: var(--crema); font-weight: 600; }
+
+.video-nota {
+  background: rgba(255,255,255,0.05);
+  border-left: 2px solid var(--mar-clar);
+  padding: .9rem 1.2rem;
+  font-size: 12px;
+  color: rgba(245,237,224,0.5);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+.video-nota strong { color: rgba(245,237,224,0.8); }
+
+/* FOOTER */
+footer {
+  background: var(--terra);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+footer p {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(245,237,224,0.3);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width: 760px) {
+  #login-screen { flex-direction: column; }
+  .login-left { padding: 3rem 2rem 2.5rem; }
+  .login-left h1 { font-size: 3rem; }
+  .login-right { padding: 2.5rem 2rem; }
+  .hero h1 { font-size: 3rem; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-dates { display: none; }
+  .mat-grid { grid-template-columns: 1fr; }
+  .video-passos { grid-template-columns: 1fr 1fr; }
+  .colonies-grid { font-size: 11px; }
+  .main { padding: 2rem 1.2rem 3rem; }
+  footer { flex-direction: column; gap: .4rem; text-align: center; }
+}
+@media(max-width: 500px) {
+  .video-passos { grid-template-columns: 1fr; }
+  .colonies-grid { grid-template-columns: 60px repeat(3,1fr); font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LOGIN
+══════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-left">
+    <div class="login-lines"></div>
+    <div class="login-left-content">
+      <div class="login-tag">Crèdit de Síntesi · 3r ESO · Vedruna Torelló</div>
+      <h1>Entre <em>Mar</em> i <strong>Muntanya</strong></h1>
+      <p class="login-desc">Portal de recursos per al projecte interdisciplinari de final de curs. Cap de Creus i l'Albera.</p>
+      <div class="login-loc">Alt Empordà · Juny 2026</div>
+    </div>
+  </div>
+  <div class="login-right">
+    <div class="login-form">
+      <div class="lf-eyebrow">Accés alumnes</div>
+      <div class="lf-title">Identifica't</div>
+      <div class="lf-sub">Introdueix la contrasenya del grup</div>
+      <div class="lf-field">
+        <label>Contrasenya</label>
+        <input type="password" id="pwd-input" autocomplete="off"
+               onkeydown="if(event.key==='Enter') checkLogin()" autofocus>
+      </div>
+      <button class="lf-btn" onclick="checkLogin()">Entrar</button>
+      <div class="lf-error" id="login-error">Contrasenya incorrecta. Torna-ho a intentar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PORTAL
+══════════════════════════════════════ -->
+<div id="portal">
+
+  <div class="top-bar">
+    <div class="top-bar-left">Vedruna Torelló · 3r ESO · 2025–26</div>
+    <div class="top-bar-right">
+      <span>Entre Mar i Muntanya</span>
+      <button class="btn-sortir" onclick="logout()">Sortir</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-lines"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">Crèdit de Síntesi · Curs 2025–26</div>
+        <h1>Entre <em>Mar</em><br>i <strong>Muntanya</strong></h1>
+        <p class="hero-desc">Projecte interdisciplinari de final de curs. Aquí trobaràs tots els materials, el calendari d'activitats i les eines per dur a terme el crèdit.</p>
+      </div>
+      <div class="hero-dates">
+        <div class="hero-date-item">11–12 juny · Sessions prèvies</div>
+        <div class="hero-date-item">15–17 juny · Colònies · Camp</div>
+        <div class="hero-date-item">18 juny · Presentació final</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave"></div>
+
+  <div class="main">
+
+    <!-- CALENDARI -->
+    <div class="s-label">
+      <div class="s-label-text">Calendari</div>
+      <div class="s-label-line"></div>
+    </div>
+    <div class="calendari">
+
+      <!-- Sessions prèvies -->
+      <div class="fase-block">
+        <div class="fase-dates">11 – 12 de juny</div>
+        <div class="fase-titol">Sessions prèvies — Treball previ a classe</div>
+        <div class="act-list">
+          <div class="act-item">Introducció al crèdit, formació de grups i descàrrega del dossier</div>
+          <div class="act-item">Busca informació i contesta: recerca sobre l'Alt Empordà i el Cap de Creus</div>
+          <div class="act-item">L'Alt Empordà: geografia, paisatge i territori</div>
+          <div class="act-item">El Cap de Creus i la Rosa dels Vents</div>
+          <div class="act-item">Notícia: Sucesos en el Monasterio (castellà)</div>
+          <div class="act-item">English Activity: Flyer / Leaflet (anglès)</div>
+        </div>
+      </div>
+
+      <!-- Colònies -->
+      <div class="fase-block camp">
+        <div class="fase-dates">15 – 17 de juny · Casal de l'Albera</div>
+        <div class="fase-titol">Colònies — Activitats de camp</div>
+        <div class="colonies-grid">
+          <!-- Capçalera -->
+          <div class="cg-head" style="background:transparent"></div>
+          <div class="cg-head">1r dia</div>
+          <div class="cg-head">2n dia</div>
+          <div class="cg-head">3r dia</div>
+
+          <!-- Matí -->
+          <div class="cg-row-label">Matí</div>
+          <div class="cg-cell">
+            <strong>Els dominis humans</strong>
+            St. Miquel de Fluvià
+            <em>Activitat: L'Edat Mitjana · Microinvertebrats de riu</em>
+          </div>
+          <div class="cg-cell">
+            <strong>La prehistòria</strong>
+            Ruta megalítica · Vida als estanys
+            <em>Activitat: La prehistòria i ecologia forestal</em>
+          </div>
+          <div class="cg-cell">
+            <strong>Passejada en barca</strong>
+            El litoral del Cap de Creus i l'Albera
+            <em>Activitat: Interpretació del paisatge</em>
+          </div>
+
+          <!-- Dinar -->
+          <div class="cg-row-label sopar">Dinar</div>
+          <div class="cg-cell sopar-cell">Entrepans</div>
+          <div class="cg-cell sopar-cell">Casal de l'Albera</div>
+          <div class="cg-cell sopar-cell">Entrepans</div>
+
+          <!-- Tarda -->
+          <div class="cg-row-label">Tarda</div>
+          <div class="cg-cell">
+            <strong>La Farella – Llançà</strong>
+            Ecologia marina
+            <em>Activitat: Ecologia marina i morfologia de les platges</em>
+          </div>
+          <div class="cg-cell">
+            <strong>PNIN de l'Albera</strong>
+            Bosc mediterrani
+            <em>Activitat: Estudi forestal · Anàlisi d'una parcel·la</em>
+          </div>
+          <div class="cg-cell" style="background:var(--crema);color:var(--arena);font-size:11px;text-align:center;">
+            Tornada
+          </div>
+
+          <!-- Sopar -->
+          <div class="cg-row-label sopar">Sopar</div>
+          <div class="cg-cell sopar-cell">Casal de l'Albera</div>
+          <div class="cg-cell sopar-cell">Casal de l'Albera</div>
+          <div class="cg-cell sopar-cell" style="color:transparent">—</div>
+        </div>
+      </div>
+
+      <!-- Presentació -->
+      <div class="fase-block final">
+        <div class="fase-dates">18 de juny</div>
+        <div class="fase-titol">Presentació final</div>
+        <div class="act-list">
+          <div class="act-item">Exposició oral dels treballs de cada grup davant del grup classe</div>
+          <div class="act-item">El vídeo resum serveix de base per a la presentació</div>
+          <div class="act-item">Lliurament del dossier complet</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MATERIALS -->
+    <div class="s-label">
+      <div class="s-label-text">Materials i eines</div>
+      <div class="s-label-line"></div>
+    </div>
+    <div class="materials">
+      <div class="mat-grid">
+
+        <!-- Dossier -->
+        <div class="mat-bloc">
+          <div class="mat-num">01</div>
+          <div class="mat-titol">Dossier del projecte</div>
+          <div class="mat-sub">Document Word editable. Cada grup el descarrega, el va completant al llarg de totes les activitats i l'entrega el dia 18.</div>
+          <div class="dossier-nota">
+            Descarrega el fitxer, guarda'l amb el nom del vostre grup i aneu omplint-lo tant a les sessions prèvies com durant les colònies.
+          </div>
+          <a class="btn btn-fosc" href="https://docs.google.com/document/d/1LPu5NPpxuPrQ5_livd9bqYILNBeWuvmr/export?format=docx" target="_blank">Descarregar dossier (.docx)</a>
+        </div>
+
+        <!-- Eines -->
+        <div class="mat-bloc">
+          <div class="mat-num">02</div>
+          <div class="mat-titol">Eines interactives</div>
+          <div class="mat-sub">Eines digitals per completar durant les activitats de camp. Un cop fetes, descarrega cada gràfic i afegeix-lo al dossier.</div>
+          <div class="eines-llista">
+            <button class="eina-fila" onclick="obrirEina('panel-esp')">
+              <span>Diagrama d'espècies forestals</span>
+              <small>→</small>
+            </button>
+            <button class="eina-fila" onclick="obrirEina('panel-alc')">
+              <span>Classes d'alçades d'arbres</span>
+              <small>→</small>
+            </button>
+            <button class="eina-fila" onclick="obrirEina('panel-bar')">
+              <span>Gràfic de perímetre d'arbres</span>
+              <small>→</small>
+            </button>
+            <button class="eina-fila" onclick="obrirEina('panel-pla')">
+              <span>Perfil de platja</span>
+              <small>→</small>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VÍDEO FINAL -->
+    <div class="s-label">
+      <div class="s-label-text">Vídeo resum final</div>
+      <div class="s-label-line"></div>
+    </div>
+    <div class="video-section">
+      <div class="video-bloc">
+        <div class="video-inner">
+          <div class="video-tag">Treball posterior · Lliurament final</div>
+          <div class="video-titol">El vídeo <em>resum</em> del crèdit</div>
+          <p class="video-desc">
+            Al llarg de tot el crèdit —tant a les sessions prèvies com a les colònies— heu d'anar registrant tot el que feu: fotos, apunts, observacions, moments rellevants. Amb tot aquest material creareu un vídeo resum que serà la base de la vostra exposició oral del dia 18.
+          </p>
+
+          <div class="video-passos">
+            <div class="video-pas">
+              <div class="vp-num">01</div>
+              <div class="vp-text">Aneu <strong>registrant i guardant</strong> fotos i apunts al llarg de totes les activitats, tant a classe com al camp.</div>
+            </div>
+            <div class="video-pas">
+              <div class="vp-num">02</div>
+              <div class="vp-text">Reviseu el dossier i seleccioneu els <strong>moments i descobertes més importants</strong> del crèdit.</div>
+            </div>
+            <div class="video-pas">
+              <div class="vp-num">03</div>
+              <div class="vp-text">Graveu un vídeo de <strong>3 a 5 minuts</strong> on participi tot el grup. Incloeu imatges, gràfics i reflexions.</div>
+            </div>
+            <div class="video-pas">
+              <div class="vp-num">04</div>
+              <div class="vp-text">El vídeo serà la <strong>base de la presentació oral</strong> del dia 18. Lliureu-lo seguint les instruccions del professor/a.</div>
+            </div>
+          </div>
+
+          <div class="video-nota">
+            <strong>Recordeu:</strong> el vídeo ha de reflectir el treball de tot el grup i mostrar allò que heu après. No cal que sigui perfecte tècnicament, però sí que sigui complet i cohesionat.
+          </div>
+
+          <button class="btn btn-mar" onclick="alert('El professor/a us indicarà com i on lliurar el vídeo.')">Instruccions d'entrega del vídeo</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <footer>
+    <p>Entre Mar i Muntanya · Crèdit de Síntesi · 3r ESO</p>
+    <p>Vedruna Torelló · Curs 2025–26</p>
+  </footer>
+
+</div><!-- /portal -->
+
+<script>
+/* ══════════════════════════════════════
+   CONTRASENYA
+   Per canviar-la l'any vinent, modifica només aquesta línia:
+══════════════════════════════════════ */
+const CONTRASENYA = 'marImuntanya2025'; // ← CANVIA AQUÍ
+
+function checkLogin() {
+  const val = document.getElementById('pwd-input').value;
+  const err = document.getElementById('login-error');
+  if (val === CONTRASENYA) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('portal').style.display = 'block';
+    err.style.display = 'none';
+  } else {
+    err.style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+}
+
+function logout() {
+  if (confirm('Vols tancar la sessió?')) {
+    document.getElementById('portal').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('pwd-input').value = '';
+  }
+}
+
+function obrirEina(panelId) {
+  window.open('entre_mar_i_terra_eines2.html#' + panelId, '_blank');
+}
+</script>
+</body>
+</html>
